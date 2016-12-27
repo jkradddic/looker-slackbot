@@ -202,6 +202,8 @@ defaultBot.api.team.info {}, (err, response) ->
   else
     throw new Error("Could not connect to the Slack API.")
 
+console.log process.env.PORT
+
 controller.setupWebserver process.env.PORT || 3333, (err, expressWebserver) ->
   controller.createWebhookEndpoints(expressWebserver)
   ScheduleReceiver.listen(expressWebserver, defaultBot, lookers)
