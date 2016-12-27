@@ -205,6 +205,7 @@ defaultBot.api.team.info {}, (err, response) ->
 console.log process.env.PORT
 
 controller.setupWebserver process.env.PORT || 3333, (err, expressWebserver) ->
+  console.log "setup web server"
   controller.createWebhookEndpoints(expressWebserver)
   ScheduleReceiver.listen(expressWebserver, defaultBot, lookers)
   DataActionReceiver.listen(expressWebserver, defaultBot, lookers)
