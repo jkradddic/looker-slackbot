@@ -203,10 +203,11 @@ defaultBot.api.team.info {}, (err, response) ->
     throw new Error("Could not connect to the Slack API.")
 
 controller.setupWebserver process.env.PORT || 3333, (err, expressWebserver) ->
-  controller.webserver.use '/healthcheck', require('express-healthcheck')()
   controller.createWebhookEndpoints(expressWebserver)
   ScheduleReceiver.listen(expressWebserver, defaultBot, lookers)
   DataActionReceiver.listen(expressWebserver, defaultBot, lookers)
+
+controller.webserver.use '/healthcheck', require('express-healthcheck')()
 
 controller.on 'rtm_reconnect_failed', ->
   throw new Error("Failed to reconnect to the Slack RTM API.")
