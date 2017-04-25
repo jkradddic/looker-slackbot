@@ -207,6 +207,8 @@ controller.setupWebserver process.env.PORT || 3333, (err, expressWebserver) ->
   ScheduleReceiver.listen(expressWebserver, defaultBot, lookers)
   DataActionReceiver.listen(expressWebserver, defaultBot, lookers)
 
+controller.webserver.use '/healthcheck', require('express-healthcheck')()
+
 controller.on 'rtm_reconnect_failed', ->
   throw new Error("Failed to reconnect to the Slack RTM API.")
 
